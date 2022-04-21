@@ -136,22 +136,55 @@ int main() {
     // imshow("Win3", image_32F);
     // waitKey();
 
-    double contrastPercentage = 50.0;
+    // double contrastPercentage = 80.0;
 
     Mat image32F = image.clone();
-    Mat highCont_1;
-    Mat highCont_2;
+    // Mat highCont_1;
+    // Mat highCont_2;
 
     image32F.convertTo(image32F, CV_32F);
-    highCont_1 = image32F * (1 + contrastPercentage/100.0);
+    // highCont_1 = image32F * (1 + contrastPercentage/100.0);
 
     image32F = image32F/255.0;
-    highCont_2 = image32F * (1 + contrastPercentage/100.0);
-    imshow("Win1", image);
-    imshow("Win2", highCont_1);
-    imshow("Win3", highCont_2);
+    // highCont_2 = image32F * (1 + contrastPercentage/100.0);
+    // imshow("Win1", image);
+    // imshow("Win2", highCont_1);
+    // imshow("Win3", highCont_2);
+    // waitKey();
+
+    int brightnessOffset = 100;
+
+    Mat bright_32F;
+    Mat brightHighChannels_32F[3];
+
+    Mat tempBright = image32F.clone();
+    tempBright = tempBright + brightnessOffset;
+
+
+    split(image32F, brightHighChannels_32F);
+    for (int i=0; i<3; i++) {
+        add(brightHighChannels_32F[i], brightnessOffset/255.0, brightHighChannels_32F[i]);
+    }
+    merge(brightHighChannels_32F, 3, bright_32F);
+
+    Mat bright_normalized_32F;
+    Mat brightHighChannels_norm_32F[3];
+
+    split(image32F, brightHighChannels_norm_32F);
+
+    for(int i=0; i<3; i++) {
+        add(brightHighChannels_norm_32F[i], brightnessOffset/255.0, brightHighChannels_norm_32F[i]);
+    }
+    merge(brightHighChannels_norm_32F, 3 , bright_normalized_32F);
+
+    double minVal, maxVal;
+    minMaxLoc(bright_normalized_32F, &minVal, &maxVal);
+    bright_normalized_32F = bright_normalized_32F/maxVal;
+
+    imshow("NoB", image);
+    imshow("Incorrect", tempBright);
+    imshow("Correct", bright_32F);
+    imshow("Normalized", bright_normalized_32F);
     waitKey();
-
-
     return 0;
 }
