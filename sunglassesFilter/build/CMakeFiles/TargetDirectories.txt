@@ -1,0 +1,3 @@
+/home/galazkamilosz/projects/opencv/sunglassesFilter/build/CMakeFiles/rebuild_cache.dir
+/home/galazkamilosz/projects/opencv/sunglassesFilter/build/CMakeFiles/edit_cache.dir
+/home/galazkamilosz/projects/opencv/sunglassesFilter/build/CMakeFiles/sunglassesFilter.dir

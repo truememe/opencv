@@ -1,4 +1,5 @@
 lesson0/
-photos/
+images/
 comp.sh
 lesson*/build
+lesson*/CMakeLists.txt
